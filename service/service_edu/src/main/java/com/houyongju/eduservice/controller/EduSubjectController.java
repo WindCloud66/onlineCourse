@@ -2,11 +2,14 @@ package com.houyongju.eduservice.controller;
 
 
 import com.houyongju.commonutils.ResultMessage;
+import com.houyongju.eduservice.entity.subject.OneSubject;
 import com.houyongju.eduservice.service.EduSubjectService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -35,8 +38,8 @@ public class EduSubjectController {
 
     @GetMapping("getAllSubject")
     public ResultMessage getAllSubject(){
-        
-        return ResultMessage.ok();
+        List<OneSubject> list = eduSubjectService.getAllOneTwoSubject();
+        return ResultMessage.ok().data("list",list);
     }
 }
 
