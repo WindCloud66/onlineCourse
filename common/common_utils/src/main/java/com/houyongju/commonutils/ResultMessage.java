@@ -1,6 +1,5 @@
 package com.houyongju.commonutils;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

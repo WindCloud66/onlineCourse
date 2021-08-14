@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.houyongju.eduservice.entity.EduCourse;
 import com.houyongju.eduservice.entity.EduCourseDescription;
 import com.houyongju.eduservice.entity.vo.CourseInfoVo;
+import com.houyongju.eduservice.entity.vo.CoursePublishVo;
 import com.houyongju.eduservice.mapper.EduCourseMapper;
+import com.houyongju.eduservice.service.EduChapterService;
 import com.houyongju.eduservice.service.EduCourseDescriptionService;
 import com.houyongju.eduservice.service.EduCourseService;
+import com.houyongju.eduservice.service.EduVideoService;
 import com.houyongju.servicebase.exceptionhandler.WindException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,12 @@ import org.springframework.stereotype.Service;
 public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse> implements EduCourseService {
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
+    // 小节注入
+    @Autowired
+    private EduVideoService eduVideoService;
+    // 章节注入
+    @Autowired
+    private EduChapterService eduChapterService;
     //添加课程基本信息
     @Override
     public String saveCourseInfo(CourseInfoVo courseInfoVo) {
@@ -76,5 +85,33 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourseDescriptionService.updateById(description);
 
 
+    }
+
+    @Override
+    public CoursePublishVo publichCourseInfo(String id) {
+        CoursePublishVo publishCourseInfo = baseMapper.getPublishCourseInfo(id);
+        return publishCourseInfo;
+    }
+
+    @Override
+    public void publichCourseById(String id) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(id);
+        eduCourse.setStatus("Normal");
+        baseMapper.updateById(eduCourse);
+    }
+    // TOOD 应该使用事务去删除
+    // TOOD 课程删除应该是小节删除
+    @Override
+    public void removeCourse(String courseId) {
+        //1 根据课程id 删除小节
+        eduVideoService.removeVideoByCourseId(courseId);
+
+        //2 根据课程id删除章节
+        eduChapterService.removeChapterByCourseId(courseId);
+        //3 根据课程id删除描述
+        eduCourseDescriptionService.removeById(courseId);
+        //4 根据课程id删除课程
+        baseMapper.deleteById(courseId);
     }
 }
