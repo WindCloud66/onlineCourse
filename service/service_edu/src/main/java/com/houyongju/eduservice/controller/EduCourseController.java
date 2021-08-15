@@ -80,6 +80,7 @@ public class EduCourseController {
     }
 
     //删除课程
+    // TODO 删除还有bug video表中没有完全删除
     @DeleteMapping("{courseId}")
     public ResultMessage deleteCourse(@PathVariable String courseId){
         eduCourseService.removeCourse(courseId);

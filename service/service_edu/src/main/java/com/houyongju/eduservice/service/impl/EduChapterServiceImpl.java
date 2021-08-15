@@ -72,7 +72,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
     public boolean deleteChapter(String chapterId) {
         //查询小节表 如果有数据则不进行删除
         QueryWrapper<EduVideo> wrapper = new QueryWrapper<>();
-        wrapper.eq("chapter_id", wrapper);
+        wrapper.eq("chapter_id", chapterId);
         int count = eduVideoService.count(wrapper);
         if(count > 0){
             return false;

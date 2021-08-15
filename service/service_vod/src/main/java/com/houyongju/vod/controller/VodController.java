@@ -3,11 +3,10 @@ package com.houyongju.vod.controller;
 import com.houyongju.commonutils.ResultMessage;
 import com.houyongju.vod.service.VodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author HouYongJu
@@ -27,7 +26,16 @@ public class VodController {
     }
 
     //根据视频id删除阿里云视频
+    @DeleteMapping("removeAliCloudVideo/{id}")
+    public ResultMessage removeAliCloudVideo(@PathVariable String id){
+        vodService.removeAliCloudVideo(id);
 
+        return ResultMessage.ok();
+    }
 
-
+    @DeleteMapping("delete-video-batch")
+    public ResultMessage deleteBatch(@RequestParam("videoIdList") List<String> videoIdList){
+        vodService.removeMoreAliCloudVideo(videoIdList);
+        return ResultMessage.ok();
+    }
 }

@@ -101,7 +101,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         baseMapper.updateById(eduCourse);
     }
     // TOOD 应该使用事务去删除
-    // TOOD 课程删除应该是小节删除
+    //  课程删除应该是小节删除
     @Override
     public void removeCourse(String courseId) {
         //1 根据课程id 删除小节
