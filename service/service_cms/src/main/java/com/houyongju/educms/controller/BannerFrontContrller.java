@@ -24,6 +24,7 @@ public class BannerFrontContrller {
     private CrmBannerService crmBannerService;
 
     @GetMapping("getAllBanner")
+
     public ResultMessage findAllBanner(){
 
         List<CrmBanner> list =  crmBannerService.selectAllBanner();
