@@ -1,4 +1,4 @@
-package com.houyongju.eduorder;
+package com.houyongju.staservice;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -9,17 +9,15 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author HouYongJu
- * @create 2021-08-19 20:00
+ * @create 2021-08-22 14:17
  */
 @SpringBootApplication
-@ComponentScan(basePackages = ("com.houyongju"))
-@MapperScan("com.houyongju.eduorder.mapper")
-@EnableFeignClients
+@ComponentScan(basePackages = {"com.houyongju"})
 @EnableDiscoveryClient
-public class OrdersApplication {
+@EnableFeignClients
+@MapperScan("com.houyongju.staservice.mapper")
+public class StaApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OrdersApplication.class, args);
-
-
+        SpringApplication.run(StaApplication.class,args);
     }
 }
