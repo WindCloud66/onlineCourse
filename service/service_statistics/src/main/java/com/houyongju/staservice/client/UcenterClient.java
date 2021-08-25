@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Component
 @FeignClient("service-ucenter")
 public interface UcenterClient {
-    @GetMapping("counterRegister/{day}")
+    @GetMapping("/educenter/member/counterRegister/{day}")
     public ResultMessage countRegister(@PathVariable("day") String day);
 
 }
